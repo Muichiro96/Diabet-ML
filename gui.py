@@ -2,7 +2,7 @@ import tkinter as tk
 
 window = tk.Tk()
 window.title("Diabetes analysis")
-photo = tk.PhotoImage(file="diabetes-test.jpg")
+photo = tk.PhotoImage(file="diabetes-test.png")
 window.wm_iconphoto(False, photo)
 
 frame = tk.Frame(master=window, width=600, height=600)
