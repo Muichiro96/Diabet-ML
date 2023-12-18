@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter.ttk import Style
 
+from model import Predictor
+
 window = tk.Tk()
 window.title("Diabetes analysis")
 photo = tk.PhotoImage(file="diabetes-test.png")
@@ -13,10 +15,14 @@ style.configure('TButton', font=
 ('calibri', 10, 'bold'),
                 foreground='green')
 
+predictor = Predictor()
 
 def eventhandler(e):
-    print([pregnancy.get(), glucoselevel.get(), bloodPressure.get(), skinThickness.get(), insulinLevel.get(), BMI.get(),
-          DPF.get(), age.get()])
+    print(pregnancy.get(), glucoselevel.get(), bloodPressure.get(), skinThickness.get(), insulinLevel.get(), BMI.get(),
+          DPF.get(), age.get())
+    print(predictor.isDiabetic(getInputData()))
+    # TODO check if true or false and show results to user!
+
 
 def getInputData():
     return [pregnancy.get(), glucoselevel.get(), bloodPressure.get(), skinThickness.get(), insulinLevel.get(), BMI.get(),
