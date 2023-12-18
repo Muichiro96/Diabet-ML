@@ -1,32 +1,39 @@
 import tkinter as tk
-from tkinter.ttk import Style
-
+from tkinter import font
+from PIL import Image, ImageTk
 from model import Predictor
 
 window = tk.Tk()
 window.title("Diabetes analysis")
 photo = tk.PhotoImage(file="diabetes-test.png")
 window.wm_iconphoto(False, photo)
-
+background_image = tk.PhotoImage(file="bg4.png")
 frame = tk.Frame(master=window, width=600, height=600)
 frame.pack()
-style = Style()
-style.configure('TButton', font=
-('calibri', 10, 'bold'),
-                foreground='green')
-
+background_label = tk.Label(frame, image=background_image)
+background_label.place(relwidth=1, relheight=1)
 predictor = Predictor()
+
 
 def eventhandler(e):
     print(pregnancy.get(), glucoselevel.get(), bloodPressure.get(), skinThickness.get(), insulinLevel.get(), BMI.get(),
           DPF.get(), age.get())
-    print(predictor.isDiabetic(getInputData()))
+    result = predictor.isDiabetic(getInputData())
+    if result:
+        res.config(text="results", font="Arial")
+        res1.config(text="You are Diabetic", bg="red",
+                    font="Helvetica 16 bold italic")
+    else:
+        res.config(text="results", font="Arial")
+        res1.config(text="You are not Diabetic", fg="light green", bg="dark green",
+                    font="Helvetica 16 bold italic")
     # TODO check if true or false and show results to user!
 
 
 def getInputData():
-    return [pregnancy.get(), glucoselevel.get(), bloodPressure.get(), skinThickness.get(), insulinLevel.get(), BMI.get(),
-           DPF.get(), age.get()]
+    return [pregnancy.get(), glucoselevel.get(), bloodPressure.get(), skinThickness.get(), insulinLevel.get(),
+            BMI.get(),
+            DPF.get(), age.get()]
 
 
 label1 = tk.Label(master=frame, text="Blood Pressure :")
@@ -69,7 +76,18 @@ label7.place(x=30, y=400)
 label7.config(font=("Courier New", 12))
 age = tk.Entry(master=frame)
 age.place(x=320, y=400)
-button = tk.Button(master=frame, text="Submit")
-button.place(x=300, y=500, width=100, height=50)
+res = tk.Label()
+res.place(x=60, y=450)
+res1 = tk.Label()
+res1.place(x=50, y=470)
+button_font = font.Font(family='Comfortaa', size=14, weight="normal")
+button = tk.Button(master=frame, text="submit", bg='#45b592',
+                   fg='#ffffff',
+                   bd=0,
+                   font=button_font,
+                   height=2,
+                   width=15, borderwidth=0)
+
+button.place(x=400, y=500, width=100, height=40)
 button.bind('<Button-1>', eventhandler)
 window.mainloop()
