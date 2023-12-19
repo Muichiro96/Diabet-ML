@@ -1,13 +1,19 @@
+import os.path
+
 import numpy as np
 
 
 class Predictor:
     def __init__(self):
-        # Importing the libraries
+        if os.path.exists("diabetes.joblib"):
+            self.loadTrainedModel()
+            print("Loaded a trained model")
+        else:
+            print("training...")
+            self.trainModelAndDump()
+    def trainModelAndDump(self):
         import numpy as np
-        import matplotlib.pyplot as plt
         import pandas as pd
-        from sklearn.model_selection import train_test_split, cross_val_score
         from sklearn.model_selection import GridSearchCV
         from sklearn.metrics import accuracy_score, roc_auc_score, roc_curve
         from sklearn.neighbors import KNeighborsClassifier
@@ -60,20 +66,21 @@ class Predictor:
 
         import numpy as np
 
-        # Example input data (replace this with your actual input data)
+        # test input
         new_data = np.array([7,81,78,40,48,46.7,0.261,42])
-
-        # Reshape the input data to make it 2D
         new_data_reshaped = new_data.reshape(1, -1)
-
-        # Scale the input data using the same StandardScaler
         scaled_new_data = self.sc.transform(new_data_reshaped)
 
-        # Make predictions
-        new_data_probabilities = knnClassifier.predict(scaled_new_data)
-
-        print('Probability scores for each class:', new_data_probabilities)
+        print('Probability scores for each class:', knnClassifier.predict(scaled_new_data))
         self.predictor = knnClassifier
+        from joblib import dump
+        dump(self.predictor, 'diabetes.joblib')
+        dump(self.sc, 'scaler.joblib')
+    def loadTrainedModel(self):
+        from joblib import  load
+        self.predictor = load('diabetes.joblib')
+        self.sc = load('scaler.joblib')
+
     def isDiabetic(self, inputData):
         # Example input data (replace this with your actual input data)
         # stdin = input("Give input")
