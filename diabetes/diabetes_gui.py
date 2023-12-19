@@ -1,13 +1,14 @@
 import tkinter as tk
 from tkinter import font, messagebox
-from PIL import Image, ImageTk
 from diabetes.model import Predictor
+
 predictor = Predictor()
 window = tk.Tk()
 window.title("Diabetes analysis")
-photo = tk.PhotoImage(file="./diabetes-test.png")
+window.resizable(width=False, height=False)
+photo = tk.PhotoImage(file="diabetes-test.png")
 window.wm_iconphoto(False, photo)
-background_image = tk.PhotoImage(file="./bg4.png")
+background_image = tk.PhotoImage(file="../bg4.png")
 frame = tk.Frame(master=window, width=600, height=600)
 frame.pack()
 background_label = tk.Label(frame, image=background_image)
@@ -29,6 +30,8 @@ def validate_input():
     except ValueError:
         messagebox.showerror("Invalid Input", "Please enter valid numeric values for all input fields.")
         return False
+
+
 def eventhandler(e):
     if not validate_input():
         return
@@ -37,13 +40,18 @@ def eventhandler(e):
     result, proba_false, proba_true = predictor.isDiabetic(getInputData())
     probas = f"Diabetic : {proba_true} \n Non Diabetic: {proba_false}"
     if result:
-        res.config(text="results", font="Arial")
+        res.config(text="results", font=("Courier New", 12))
+        res.place(x=60, y=450)
         res1.config(text="You are Diabetic \n" + probas, bg="red",
                     font="Helvetica 16 bold italic")
+        res1.place(x=20, y=470)
     else:
-        res.config(text="results", font="Arial")
+        res.config(text="results", font=("Courier New", 12))
+        res.place(x=60, y=450)
         res1.config(text="You are not Diabetic \n" + probas, fg="light green", bg="dark green",
                     font="Helvetica 16 bold italic")
+        res1.place(x=20, y=470)
+
 
 def getInputData():
     return [pregnancy.get(), glucoselevel.get(), bloodPressure.get(), skinThickness.get(), insulinLevel.get(),
@@ -92,9 +100,9 @@ label7.config(font=("Courier New", 12))
 age = tk.Entry(master=frame)
 age.place(x=320, y=400)
 res = tk.Label()
-res.place(x=60, y=450)
+
 res1 = tk.Label()
-res1.place(x=20, y=470)
+
 button_font = font.Font(family='Comfortaa', size=14, weight="normal")
 button = tk.Button(master=frame, text="submit", bg='#45b592',
                    fg='#ffffff',
