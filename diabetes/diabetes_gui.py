@@ -40,17 +40,17 @@ def eventhandler(e):
     result, proba_false, proba_true = predictor.isDiabetic(getInputData())
     probas = f"Diabetic : {proba_true} \n Non Diabetic: {proba_false}"
     if result:
-        res.config(text="results", font=("Courier New", 12))
+        res.config(text="results :", font=("Courier New", 12))
         res.place(x=60, y=450)
         res1.config(text="You are Diabetic \n" + probas, bg="red",
                     font="Helvetica 16 bold italic")
-        res1.place(x=20, y=470)
+        res1.place(x=50, y=470)
     else:
-        res.config(text="results", font=("Courier New", 12))
+        res.config(text="results :", font=("Courier New", 12))
         res.place(x=60, y=450)
         res1.config(text="You are not Diabetic \n" + probas, fg="light green", bg="dark green",
                     font="Helvetica 16 bold italic")
-        res1.place(x=20, y=470)
+        res1.place(x=50, y=470)
 
 
 def getInputData():
