@@ -12,7 +12,7 @@ class Predictor:
         from sklearn.metrics import accuracy_score, roc_auc_score, roc_curve
         from sklearn.neighbors import KNeighborsClassifier
         # Importing the dataset
-        dataset = pd.read_csv('diabetes.csv')
+        dataset = pd.read_csv('../diabetes.csv')
         X = dataset.iloc[:, :-1].values
         y = dataset.iloc[:, 8].values
 
@@ -91,5 +91,9 @@ class Predictor:
         scaled_new_data = self.sc.transform(new_data_reshaped)
         result = self.predictor.predict(scaled_new_data)
         print(result)
-        return bool(result[0])
+        probas = self.predictor.predict_proba(scaled_new_data)
+        print(probas)
+        proba_false = probas[0][0]
+        proba_true = probas[0][1]
+        return (bool(result[0]), proba_false, proba_true )
 
